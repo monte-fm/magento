@@ -2,7 +2,8 @@ FROM      ubuntu:14.04.3
 MAINTAINER Olexander Kutsenko <olexander.kutsenko@gmail.com>
 
 #install Apche2 && PHP
-RUN apt-get update -y
+RUN apt-get update 
+RUN apt-get upgrade -y
 RUN apt-get install -y software-properties-common python-software-properties
 RUN apt-get install -y git git-core vim nano mc screen curl unzip
 RUN apt-get install -y apache2 libapache2-mod-php5 libcurl3
