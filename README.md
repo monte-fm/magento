@@ -6,6 +6,7 @@ docker run -i -t -d --name=magento -h=magento -p 80:80 -p 22:22 cristo/magento /
 
 #MySQL
 ```
+DB: magento
 user: root 
 password: root
 ```

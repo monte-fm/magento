@@ -22,6 +22,7 @@ RUN sudo a2ensite magento.conf
 RUN echo "mysql-server mysql-server/root_password password root" | debconf-set-selections
 RUN echo "mysql-server mysql-server/root_password_again password root" | debconf-set-selections
 RUN sudo apt-get  install -y mysql-server mysql-client
+RUN mysqladmin -uroot -proot create magento
 
 # SSH service
 RUN sudo apt-get install -y openssh-server openssh-client
