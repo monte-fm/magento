@@ -5,7 +5,7 @@ MAINTAINER Olexander Kutsenko <olexander.kutsenko@gmail.com>
 RUN apt-get update -y
 RUN apt-get install -y software-properties-common python-software-properties
 RUN apt-get install -y git git-core vim nano mc screen curl unzip
-RUN apt-get install -y apache2 libapache2-mod-php5
+RUN apt-get install -y apache2 libapache2-mod-php5 libcurl3
 RUN apt-get install -y wget php5 php5-fpm php5-cli php5-common php5-intl 
 RUN apt-get install -y php5-json php5-mysql php5-gd php5-imagick
 RUN apt-get install -y php5-curl php5-mcrypt php5-dev php5-xdebug
