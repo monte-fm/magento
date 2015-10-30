@@ -17,6 +17,7 @@ COPY configs/php.ini /etc/php5/apache2/php.ini
 COPY configs/magento-1.9.2.1.zip /home/magento-1.9.2.1.zip
 COPY configs/apache2/magento.conf /etc/apache2/sites-available/magento.conf
 RUN sudo a2ensite magento.conf
+RUN sudo php5enmod mcrypt
 
 #MySQL install + password
 RUN echo "mysql-server mysql-server/root_password password root" | debconf-set-selections
