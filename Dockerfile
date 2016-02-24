@@ -11,8 +11,7 @@ RUN apt-get install -y wget php5 php5-fpm php5-cli php5-common php5-intl
 RUN apt-get install -y php5-json php5-mysql php5-gd php5-imagick
 RUN apt-get install -y php5-curl php5-mcrypt php5-dev php5-xdebug
 RUN sudo rm /etc/php5/apache2/php.ini
-RUN sudo rm /etc/apache2/sites-available/000-default.conf
-RUN sudo rm /etc/apache2/sites-enabled/000-default.conf
+RUN sudo rm -rf /etc/apache2/sites-available/*
 COPY configs/php.ini /etc/php5/apache2/php.ini
 COPY configs/magento-1.9.2.1.zip /home/magento-1.9.2.1.zip
 COPY configs/apache2/magento.conf /etc/apache2/sites-available/magento.conf
