@@ -1,9 +1,12 @@
-FROM      ubuntu:14.04.3
+FROM      ubuntu:14.04.4
 MAINTAINER Olexander Kutsenko <olexander.kutsenko@gmail.com>
 
 #install Apche2 && PHP
 RUN apt-get update 
 RUN apt-get upgrade -y
+RUN apt-get install -y language-pack-en-base
+RUN LC_ALL=en_US.UTF-8 add-apt-repository ppa:ondrej/php
+RUN apt-get update
 RUN apt-get install -y software-properties-common python-software-properties
 RUN apt-get install -y git git-core vim nano mc screen curl unzip
 RUN apt-get install -y apache2 libapache2-mod-php5 libcurl3
@@ -13,15 +16,20 @@ RUN apt-get install -y php5-curl php5-mcrypt php5-dev php5-xdebug
 RUN sudo rm /etc/php5/apache2/php.ini
 RUN sudo rm -rf /etc/apache2/sites-available/*
 COPY configs/php.ini /etc/php5/apache2/php.ini
-COPY configs/magento-1.9.2.1.zip /home/magento-1.9.2.1.zip
+COPY configs/Magento-CE-2.0.7.zip /home/magento.zip
 COPY configs/apache2/magento.conf /etc/apache2/sites-available/magento.conf
 RUN sudo a2ensite magento.conf
 RUN sudo php5enmod mcrypt
 
-#MySQL install + password
-RUN echo "mysql-server mysql-server/root_password password root" | debconf-set-selections
-RUN echo "mysql-server mysql-server/root_password_again password root" | debconf-set-selections
-RUN sudo apt-get  install -y mysql-server mysql-client
+#Install Percona Mysql 5.6 server
+RUN wget https://repo.percona.com/apt/percona-release_0.1-3.$(lsb_release -sc)_all.deb
+RUN dpkg -i percona-release_0.1-3.$(lsb_release -sc)_all.deb
+RUN rm percona-release_0.1-3.$(lsb_release -sc)_all.deb
+RUN apt-get update
+RUN echo "percona-server-server-5.6 percona-server-server/root_password password root" | sudo debconf-set-selections
+RUN echo "percona-server-server-5.6 percona-server-server/root_password_again password root" | sudo debconf-set-selections
+RUN apt-get install -y percona-server-server-5.6
+COPY configs/mysql/my.cnf /etc/mysql/my.cnf
 RUN mysqladmin -uroot -proot create magento
 
 # SSH service
@@ -39,9 +47,11 @@ RUN echo "export VISIBLE=now" >> /etc/profile
 COPY configs/autostart.sh /root/autostart.sh
 RUN chmod +x /root/autostart.sh
 COPY configs/bash.bashrc /etc/bash.bashrc
+COPY configs/.bashrc /root/.bashrc
 
-#aliases
-RUN alias ll='ls -la'
+#Install locale
+RUN locale-gen en_US.UTF-8
+RUN dpkg-reconfigure locales
 
 #Add colorful command line
 RUN echo "force_color_prompt=yes" >> .bashrc
@@ -49,9 +59,17 @@ RUN echo "export PS1='${debian_chroot:+($debian_chroot)}\[\033[01;31m\]\u\[\033[
 
 #Unzip console magento
 RUN rm -rf /var/www/*
-RUN unzip -d /var/www /home/magento-1.9.2.1.zip
+RUN unzip -d /var/www /home/magento.zip
 RUN chown -R www-data:www-data /var/www
-RUN rm /home/magento-1.9.2.1.zip
+RUN rm /home/magento.zip
+
+#etcKeeper
+RUN mkdir -p /root/etckeeper
+COPY configs/etckeeper.sh /root/etckeeper.sh
+COPY configs/etckeeper-hook.sh /root/etckeeper/etckeeper-hook.sh
+RUN chmod +x /root/etckeeper/*.sh
+RUN chmod +x /root/*.sh
+RUN /root/etckeeper.sh
 
 #open ports
 EXPOSE 80 22

@@ -67,4 +67,9 @@ if [ -x /usr/lib/command-not-found -o -x /usr/share/command-not-found/command-no
 	}
 fi
 
+if [ -e /etc/bash_completion.d/symfony3-autocomplete.bash ]; then
+	. /etc/bash_completion.d/symfony3-autocomplete.bash
+fi
+
+alias ll='ls -la'
 /root/autostart.sh start
