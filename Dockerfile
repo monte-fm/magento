@@ -1,12 +1,14 @@
 FROM      ubuntu:14.04.4
 MAINTAINER Olexander Kutsenko <olexander.kutsenko@gmail.com>
 
-#install Apche2 && PHP
+#install Apche2 && PHP && supervisor && postfix
 RUN apt-get update 
 RUN apt-get upgrade -y
 RUN apt-get install -y language-pack-en-base
-RUN apt-get update
 RUN apt-get install -y software-properties-common python-software-properties
+RUN echo "postfix postfix/mailname string magento.hostname.com" | sudo debconf-set-selections
+RUN echo "postfix postfix/main_mailer_type string 'Magento E-commerce'" | sudo debconf-set-selections
+RUN apt-get install -y supervisor postfix
 RUN apt-get install -y git git-core vim nano mc screen curl unzip
 RUN apt-get install -y apache2 libapache2-mod-php5 libcurl3
 RUN apt-get install -y wget php5 php5-fpm php5-cli php5-common php5-intl 

@@ -1,6 +1,6 @@
 #Create container
 ```
-docker run -i -t -d --name=magento -h=magento -p 80:80 -p 22:22 cristo/magento /bin/bash
+docker run -i -t -d --name=magento -h=magento -p 1080:80 -p 1022:22 cristo/magento /bin/bash
 ```
 
 
@@ -12,7 +12,7 @@ password: root
 ```
 #SSH
 ```
-ssh -p22 root@localhost
+ssh -p1022 root@localhost
 password: root
 ```
 #NGINX server config file for communicate with docker
@@ -28,7 +28,7 @@ server {
                                 proxy_set_header Host $host;
                                 proxy_set_header X-Real-IP $remote_addr;
                                 proxy_cache off;
-                                proxy_pass http://localhost:80;
+                                proxy_pass http://localhost:1080;
                         }
 }
 ```
