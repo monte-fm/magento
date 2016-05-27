@@ -5,7 +5,6 @@ MAINTAINER Olexander Kutsenko <olexander.kutsenko@gmail.com>
 RUN apt-get update 
 RUN apt-get upgrade -y
 RUN apt-get install -y language-pack-en-base
-RUN LC_ALL=en_US.UTF-8 add-apt-repository ppa:ondrej/php
 RUN apt-get update
 RUN apt-get install -y software-properties-common python-software-properties
 RUN apt-get install -y git git-core vim nano mc screen curl unzip
