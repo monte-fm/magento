@@ -31,7 +31,6 @@ RUN echo "percona-server-server-5.6 percona-server-server/root_password password
 RUN echo "percona-server-server-5.6 percona-server-server/root_password_again password root" | sudo debconf-set-selections
 RUN apt-get install -y percona-server-server-5.6
 COPY configs/mysql/my.cnf /etc/mysql/my.cnf
-RUN /bin/bash -c 'mysqladmin -uroot -proot create magento'
 
 # SSH service
 RUN apt-get install -y openssh-server openssh-client
