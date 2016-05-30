@@ -9,8 +9,8 @@ RUN apt-get install -y software-properties-common python-software-properties
 RUN echo "postfix postfix/mailname string magento.hostname.com" | sudo debconf-set-selections
 RUN echo "postfix postfix/main_mailer_type string 'Magento E-commerce'" | sudo debconf-set-selections
 RUN apt-get install -y supervisor postfix
-RUN apt-get install -y git git-core vim nano mc screen curl unzip
-RUN apt-get install -y apache2 libapache2-mod-php5 libcurl3
+RUN apt-get install -y git git-core vim nano mc screen curl zip unzip
+RUN apt-get install -y apache2 libapache2-mod-php5 libcurl3 tmux
 RUN apt-get install -y wget php5 php5-fpm php5-cli php5-common php5-intl 
 RUN apt-get install -y php5-json php5-mysql php5-gd php5-imagick
 RUN apt-get install -y php5-curl php5-mcrypt php5-dev php5-xdebug
