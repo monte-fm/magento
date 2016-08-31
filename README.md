@@ -35,7 +35,7 @@ server {
 ```
 
 # Origin
-[Docker Hub] (https://registry.hub.docker.com/r/cristo/magento)
+[Docker Hub] (https://hub.docker.com/r/cristo/magento/)
 
 [Git Hub] (https://github.com/monte-fm/magento)
 
