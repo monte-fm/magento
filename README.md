@@ -1,22 +1,23 @@
-#Create container
+# Create container
 ```
-docker run -i -t -d --name=magento -h=magento -p 1080:80 -p 1022:22 cristo/magento /bin/bash
+docker run -it -d --name=magento -h=magento -p 1080:80 -p 1022:22 cristo/magento:php7 /bin/bash
 ```
 
 
-#MySQL
+# MySQL
 ```
 DB: magento
 user: root 
 password: root
 ```
-#SSH
+
+# SSH
 ```
 ssh -p1022 root@localhost
 password: root
 ```
-#NGINX server config file for communicate with docker
 
+# NGINX server config file for communicate with docker
 ```
 server {
         listen *:80;
@@ -33,8 +34,8 @@ server {
 }
 ```
 
-#Origin
-[Docker Hub] (https://registry.hub.docker.com/u/cristo/magento)
+# Origin
+[Docker Hub] (https://registry.hub.docker.com/r/cristo/magento)
 
 [Git Hub] (https://github.com/monte-fm/magento)
 
